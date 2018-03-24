@@ -11,4 +11,4 @@ built to support:
 * The GAP
 
 ## Language
-Python w/ Beautiful Soup
+Python3 w/ Beautiful Soup
