@@ -12,3 +12,21 @@ built to support:
 
 ## Language
 Python3 w/ Beautiful Soup
+
+## Setup
+
+```bash
+pip3 install -r requirements.txt
+```
+
+## Service - Execution
+
+```bash
+python service/main.py
+```
+
+## Client - Execution
+
+```bash
+node client/server.js
+```

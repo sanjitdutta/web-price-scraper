@@ -43,5 +43,3 @@ def main():
 
     print(price_sale)
     print(price_regular)
-
-main()
