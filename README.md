@@ -20,7 +20,19 @@ cd service
 pip3 install -r requirements.txt
 cd ../client
 npm install
+cd web
+ng build
+cd ../../
 ```
+
+Set environment variables for your MongoDB configuration:
+```
+MONGODB_USER
+MONGODB_PASSWORD
+MONGODB_DB
+```
+
+These can also be stored in a `.env` file within `./client`.
 
 ## Service - Execution
 
