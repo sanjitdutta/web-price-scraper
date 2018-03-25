@@ -21,14 +21,21 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser());
 
-app.use('/', router);
+app.use(express.static('web/dist'));
 
-const homeRoute = router.route('/');
-// const watchesRoute = router.route('/api/watches');
-// const watchRoute = router.route('/api/watch/:id');
+app.use('/api', router);
 
-homeRoute.get((req, res) => {
-  res.sendFile(path.join(__dirname + '/index.html'));
+const watchesRoute = router.route('/watches');
+const watchRoute = router.route('/watch/:id');
+
+watchesRoute.get((req, res) => {
+  res.json({success: true, message: 'nothing here yet bruh'});
+});
+
+watchRoute.get((req, res) => {
+  const watchId = req.params.id;
+  res.json({success: true, message: 'nothing here yet bruh, but yo ID is '
+    + watchId});
 });
 
 app.listen(port);

@@ -16,7 +16,10 @@ Python3 w/ Beautiful Soup
 ## Setup
 
 ```bash
+cd service
 pip3 install -r requirements.txt
+cd ../client
+npm install
 ```
 
 ## Service - Execution
