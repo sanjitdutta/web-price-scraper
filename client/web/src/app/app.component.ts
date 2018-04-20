@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WatchService } from './watch.service';
 
 @Component({
   selector: 'app-root',
@@ -23,5 +24,9 @@ export class AppComponent {
   
   addWatch(watchText: string) {
     this.watches.push({text: watchText});
+  }
+  
+  constructor(private watchService: WatchService) {
+    watchService.get().subscribe((watches: any) => this.watches = watches); // TODO: fix to parse watches
   }
 }
