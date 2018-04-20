@@ -1,5 +1,6 @@
 import {Component, EventEmitter, HostListener, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
+import { takeWhile, debounceTime, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-watch-input',
@@ -14,10 +15,19 @@ export class NewWatchInputComponent implements OnInit {
     this.newWatchForm = fb.group({
       'text': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
     });
+    
+    this.newWatchForm.valueChanges.pipe(
+      filter((value) => this.newWatchForm.valid),
+      debounceTime(500),
+      takeWhile(() => this.alive)
+    ).subscribe(data => {
+      console.log(data);
+    });
   }
 
   @Output() onWatchAdd = new EventEmitter<string>();
   public newWatch: any = {text: ''};
+  private alive = true;
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -32,6 +42,10 @@ export class NewWatchInputComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  
+  ngOnDestroy() {
+    this.alive = false;
   }
 
 }
