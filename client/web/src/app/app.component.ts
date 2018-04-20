@@ -20,4 +20,8 @@ export class AppComponent {
     {text: 'Watch 9'},
     {text: 'Watch 10'}
   ];
+  
+  addWatch(watchText: string) {
+    this.watches.push({text: watchText});
+  }
 }
