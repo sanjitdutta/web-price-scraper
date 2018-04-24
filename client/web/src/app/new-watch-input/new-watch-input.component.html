@@ -1,3 +1,10 @@
 <form [formGroup]="newWatchForm" novalidate>
-  <input placeholder="Take a note..." name="text" formControlName="text">
+  <input placeholder="Watch title" name="title" formControlName="title">
+  <input placeholder="Watch URL" name="url" formControlName="url">
+  <select name="website" formControlName="website">
+    <option disabled>Website</option>
+    <option *ngFor="let w of websites | async" value="{{w.id}}">
+      {{w.name}}
+    </option>
+  </select>
 </form>

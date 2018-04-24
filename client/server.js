@@ -11,6 +11,7 @@ const dbPassword = process.env.MONGODB_PASSWORD;
 const db = process.env.MONGODB_DB;
 
 const Watch = require('./watch');
+const Website = require('./website');
 
 mongoose.connect('mongodb://' + dbUser + ':' + dbPassword + '@' + db);
 
@@ -36,6 +37,8 @@ app.use('/api', router);
 const watchesRoute = router.route('/watches');
 const watchRoute = router.route('/watch/:id');
 
+const websitesRoute = router.route('/websites');
+
 
 
 
@@ -50,6 +53,12 @@ watchesRoute.options(function(req, res) {
 
 // needed for CORS I think? but we're not using it, whatever
 watchRoute.options(function(req, res) {
+  res.writeHead(200);
+  res.end();
+});
+
+// needed for CORS I think? but we're not using it, whatever
+websitesRoute.options(function(req, res) {
   res.writeHead(200);
   res.end();
 });
@@ -217,6 +226,28 @@ watchRoute.delete((req, res) => {
   });
 });
 
+
+
+
+
+// allows filtering by URL, email
+websitesRoute.get((req, res) => {
+
+  const query = Website.find();
+  query.exec((err, websites) => {
+
+    if (err) return res.status(500).json({
+      success: false,
+      message: 'internal server error'
+    });
+
+    res.json({
+      success: true,
+      message: 'welp, here it is',
+      data: websites
+    });
+  });
+});
 
 
 

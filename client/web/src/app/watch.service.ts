@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import 'rxjs/add/operator/map';
+
+import { ApiResponse } from './api-response';
+
 @Injectable()
 export class WatchService {
 
   constructor(private http: HttpClient) {}
   
   get() {
-    return this.http.get(`/api/v1/cards.json`); // TODO: fix endpoint
+    return this.http.get(`/api/watches`).map((res: ApiResponse) => {
+      return res.data;
+    });
   }
 
-  add(payload) {
-    return this.http.post(`/api/v1/cards.json`, {text: payload.trim()}); // TODO: fix endpoint
+  post(payload) {
+    return this.http.post(`/api/watches`, {text: payload.trim()}); // TODO: fix endpoint
   }
 
-  remove(payload) {
-    return this.http.delete(`/api/v1/cards/${payload.id}.json`); // TODO: fix endpoint
+  delete(payload) {
+    return this.http.delete(`/api/watch/${payload.id}`); // TODO: fix endpoint
   }
 
-  update(payload) {
-    return this.http.patch(`/api/v1/cards/${payload.id}.json`, payload); // TODO: fix endpoint
+  put(payload) {
+    return this.http.put(`/api/watch/${payload.id}`, payload); // TODO: fix endpoint
   }
 
 }
