@@ -109,10 +109,12 @@ watchesRoute.post((req, res) => {
     message: 'watchers are required'
   });
 
+  const title = req.body.title;
   const url = req.body.url;
+  const website = req.body.website;
   const watchers = req.body.watchers;
 
-  const watch = new Watch({ url, watchers });
+  const watch = new Watch({ title, url, website, watchers });
   watch.save((err, watch) => {
     if (err) return res.status(500).json({
       success: false,
@@ -180,7 +182,9 @@ watchRoute.put((req, res) => {
       message: 'watch not found'
     });
 
+    watch.title = req.body.title || '';
     watch.url = req.body.url || '';
+    watch.website = req.body.website || 0;
     watch.watchers = req.body.watchers || [];
 
     watch.save((err, watch) => {

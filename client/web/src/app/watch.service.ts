@@ -17,15 +17,15 @@ export class WatchService {
   }
 
   post(payload) {
-    return this.http.post(`/api/watches`, {text: payload.trim()}); // TODO: fix endpoint
+    return this.http.post(`/api/watches`, payload);
   }
 
   delete(payload) {
-    return this.http.delete(`/api/watch/${payload.id}`); // TODO: fix endpoint
+    return this.http.delete(`/api/watch/${payload}`);
   }
 
   put(payload) {
-    return this.http.put(`/api/watch/${payload.id}`, payload); // TODO: fix endpoint
+    return this.http.put(`/api/watch/${payload.id}`, payload);
   }
 
 }

@@ -1,3 +1,6 @@
 <div class="watch">
-  Sample text: {{ watch.url }}
+  <div class="watch-title">{{ watch.title }}</div>
+  <div class="watch-url">{{ watch.url }}</div>
+  <div class="watch-website">{{ watch.website }}</div>
+  <app-watcher *ngFor="let watcher of watch.watchers" [watcher]="watcher"></app-watcher>
 </div>

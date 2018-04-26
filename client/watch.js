@@ -3,9 +3,15 @@
 const mongoose = require('mongoose');
 
 var WatchSchema = new mongoose.Schema({
+  title: {
+    type: String
+  },
   url: {
     type: String,
     required: [true, 'URL is required for monitoring']
+  },
+  website: {
+    type: Number
   },
   watchers: [{
     email: {

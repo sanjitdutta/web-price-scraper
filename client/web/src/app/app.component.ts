@@ -15,13 +15,15 @@ export class AppComponent {
     {url: 'Watch 3'},
     {url: 'Watch 4'}
   ];
+  private watchService: WatchService;
   
-  addWatch(watchText: string) {
-    this.watches.push({url: watchText});
+  addWatch(transformedWatch: any) {
+    this.watches.push(transformedWatch);
   }
   
-  constructor(private watchService: WatchService) {
-    watchService.get().subscribe((watches: any) => {
+  constructor(private _watchService: WatchService) {
+    this.watchService = _watchService;
+    this.watchService.get().subscribe((watches: any) => {
       this.watches = watches;
     });
   }

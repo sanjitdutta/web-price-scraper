@@ -10,13 +10,15 @@ import { NewWatchInputComponent } from './new-watch-input/new-watch-input.compon
 
 import { WatchService } from './watch.service';
 import { WebsiteService } from './website.service';
+import { WatcherComponent } from './watcher/watcher.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WatchComponent,
     WatchListComponent,
-    NewWatchInputComponent
+    NewWatchInputComponent,
+    WatcherComponent
   ],
   imports: [
     BrowserModule,
