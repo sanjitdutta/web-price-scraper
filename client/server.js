@@ -89,10 +89,35 @@ watchesRoute.get((req, res) => {
       message: 'internal server error'
     });
 
-    res.json({
-      success: true,
-      message: 'welp, here it is',
-      data: watches
+    // get website details so we can sub website ID for name
+    const query2 = Website.find();
+    query2.exec((err, websites) => {
+
+      if (err) return res.status(500).json({
+        success: false,
+        message: 'internal server error'
+      });
+
+      const websiteDict = {};
+      websites.forEach(website => {
+        websiteDict[website.id] = website.name;
+      });
+
+      const watchesPlus = watches.map(watch => watch.toObject());
+
+      // sub website ID for name
+      for (let index in watchesPlus) {
+        watchesPlus[index].websiteName =
+          websiteDict[watchesPlus[index].website];
+        watchesPlus[index].websiteId = watchesPlus[index].website;
+      }
+
+      res.json({
+        success: true,
+        message: 'welp, here it is',
+        data: watchesPlus
+      });
+
     });
   });
 });
@@ -210,7 +235,7 @@ watchRoute.delete((req, res) => {
     message: 'watch not found'
   });
 
-  Watch.findByIdAndDelete(watchId, (err, watch) => {
+  Watch.findByIdAndRemove(watchId, (err, watch) => {
 
     if (err) return res.status(500).json({
       success: false,
@@ -234,7 +259,6 @@ watchRoute.delete((req, res) => {
 
 
 
-// allows filtering by URL, email
 websitesRoute.get((req, res) => {
 
   const query = Website.find();

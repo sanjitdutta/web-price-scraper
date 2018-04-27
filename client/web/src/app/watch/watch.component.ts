@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { WatchService } from '../watch.service';
 
 @Component({
   selector: 'app-watch',
@@ -7,9 +8,27 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class WatchComponent implements OnInit {
 
-  @Input() watch: Object;
+  @Input() watch: any;
+  @Output() onWatchDelete = new EventEmitter<any>();
+  private watchService : WatchService;
 
-  constructor() { }
+  constructor(private _watchService : WatchService) {
+    this.watchService = _watchService;
+  }
+
+  onDelete() {
+    this.watchService.delete(this.watch._id).subscribe(
+      
+      () => {
+        this.onWatchDelete.emit();
+      },
+      
+      (error : any) => {
+        console.log('error: ' + JSON.stringify(error));
+      }
+      
+    );
+  }
 
   ngOnInit() {
   }

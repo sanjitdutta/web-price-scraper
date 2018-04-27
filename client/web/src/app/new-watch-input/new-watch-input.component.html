@@ -1,12 +1,13 @@
-<form [formGroup]="newWatchForm" novalidate>
-  <input placeholder="Watch title" name="title" formControlName="title">
-  <input placeholder="Watch URL" name="url" formControlName="url">
+<form [formGroup]="newWatchForm" novalidate class="watch-input">
+  <div class="watch-input-title">Add a new watch:</div>
   <select name="website" formControlName="website">
     <option disabled>Website</option>
     <option *ngFor="let w of websites | async" value="{{w.id}}">
       {{w.name}}
     </option>
   </select>
+  <input placeholder="Watch title" name="title" formControlName="title">
+  <input placeholder="Watch URL" name="url" formControlName="url">
   <input placeholder="Watcher email" name="email" formControlName="email">
   <input placeholder="Target price" name="price" formControlName="price">
   <button (click)="onSubmit()" [disabled]="!newWatchForm.valid">Submit</button>

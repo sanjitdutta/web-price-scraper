@@ -6,3 +6,116 @@ html, body, * {
   font-family: sans-serif;
   font-size: 14px;
 }
+
+body {
+  background: #222;
+  color: #fff;
+}
+
+a {
+  color: #fff;
+}
+
+.title {
+  width: 100%;
+  background: #333;
+  color: #fff;
+  font-weight: bold;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.watch-input {
+  margin: 20px;
+  padding: 10px;
+  background: #555;
+  text-align: center;
+}
+
+.watch-input-title {
+  display: inline;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+input,
+button,
+select,
+option {
+  padding: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+input {
+  width: 200px;
+}
+
+.watch-list {
+  margin: 0px 20px 20px 20px;
+  padding: 0px 20px 20px 20px;
+  background: #555;
+}
+
+.watch {
+  margin: 20px 20px 0px 0px;
+  background: #777;
+  width: 250px;
+  position: relative;
+  display: inline-block;
+}
+
+.watch-details {
+  padding: 10px 10px 30px 10px;
+}
+
+.watch button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.watch .watch-title {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  background: #888;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.watch-website {
+  color: #000;
+  font-weight: bold;
+  font-size: 10px;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  padding: 3px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  
+}
+
+.watch-website-0 {
+  background: #f99;
+}
+
+.watch-website-1 {
+  background: #9f9;
+}
+
+.watch-website-2 {
+  background: #99f;
+}
+
+.watcher, .watcher span {
+  font-size: 11px;
+}
+
+.watcher-email,
+.watcher-price {
+  font-weight: bold;
+}

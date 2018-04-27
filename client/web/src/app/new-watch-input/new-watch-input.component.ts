@@ -22,11 +22,17 @@ export class NewWatchInputComponent implements OnInit {
     this.watchService = _watchService;
     this.newWatchForm = fb.group({
       'title': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-      'url': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+      'url': ['', Validators.compose([
+        Validators.required,
+        Validators.pattern(/^http[s]{0,1}:\/\/.*\.[A-z]{1,5}.*$/)
+      ])],
       'website': ['', Validators.required],
 
-      'email': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-      'price': ['', Validators.required]
+      'email': ['', Validators.compose([Validators.required, Validators.email])],
+      'price': ['', Validators.compose([
+        Validators.required,
+        Validators.pattern(/^[0-9]*[\.]{0,1}[0-9]{0,2}$/)
+      ])]
     });
     
     this.websites = websiteService.get();

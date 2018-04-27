@@ -8,6 +8,7 @@ import { Input, Component, OnInit } from '@angular/core';
 export class WatcherComponent implements OnInit {
 
   @Input() watcher: Object;
+  @Input() i: Number;
 
   constructor() { }
 

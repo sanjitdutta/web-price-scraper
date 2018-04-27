@@ -1,6 +1,8 @@
 <div class="watch">
-  <div class="watch-title">{{ watch.title }}</div>
-  <div class="watch-url">{{ watch.url }}</div>
-  <div class="watch-website">{{ watch.website }}</div>
-  <app-watcher *ngFor="let watcher of watch.watchers" [watcher]="watcher"></app-watcher>
+  <button (click)="onDelete()">Delete</button>
+  <div class="watch-title"><a href="{{ watch.url }}">{{ watch.title }}</a></div>
+  <div class="watch-details">
+    <div class="watch-website watch-website-{{ watch.websiteId }}">{{ watch.websiteName }}</div>
+    <app-watcher *ngFor="let watcher of watch.watchers; let i = index" [watcher]="watcher" [i]="i + 1"></app-watcher>
+  </div>
 </div>

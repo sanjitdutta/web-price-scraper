@@ -1,3 +1,4 @@
 <div class="watch-list">
-  <app-watch *ngFor="let watch of watches" [watch]="watch"></app-watch>
+  <app-watch *ngFor="let watch of watches" [watch]="watch" (onWatchDelete)="deleteWatch($event)"></app-watch>
+  <div class="clear"></div>
 </div>

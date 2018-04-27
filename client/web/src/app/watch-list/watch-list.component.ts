@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-watch-list',
@@ -7,7 +7,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class WatchListComponent implements OnInit {
   
-  @Input() watches: Array<Object>;
+  @Input() watches : Array<Object>;
+  @Output() onWatchDelete = new EventEmitter<any>();
+
+  deleteWatch() {
+    this.onWatchDelete.emit();
+  }
 
   constructor() { }
 

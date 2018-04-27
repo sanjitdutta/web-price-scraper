@@ -10,15 +10,39 @@ export class AppComponent {
   title = 'app';
   
   public watches: Array<Object> = [
-    {url: 'Watch 1'},
-    {url: 'Watch 2'},
-    {url: 'Watch 3'},
-    {url: 'Watch 4'}
+    {
+      title: 'Watch 1 Title',
+      url: 'Watch 1 URL',
+      websiteName: 'Allen Edmonds',
+      websiteId: 0,
+      watchers: [{
+        email: 'Watch 1 Email',
+        targetPrice: 'Watch 1 Price'
+      }]
+    },
+    {
+      title: 'Watch 2 Title',
+      url: 'Watch 2 URL',
+      websiteName: 'Allen Edmonds',
+      websiteId: 0,
+      watchers: [{
+        email: 'Watch 2 Email',
+        targetPrice: 'Watch 2 Price'
+      }]
+    }
   ];
   private watchService: WatchService;
   
   addWatch(transformedWatch: any) {
-    this.watches.push(transformedWatch);
+    this.watchService.get().subscribe((watches: any) => {
+      this.watches = watches;
+    });
+  }
+  
+  deleteWatch() {
+    this.watchService.get().subscribe((watches: any) => {
+      this.watches = watches;
+    });
   }
   
   constructor(private _watchService: WatchService) {
