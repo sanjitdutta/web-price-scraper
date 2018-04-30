@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 def _currency_to_float(currency):
     return float(currency.strip().replace("$", ""))
 
-def main():
+def scrape(url):
     """Executes all logic"""
 
-    url = "https://www.allenedmonds.com/factory-second-shoes/" \
-        + "factory-2nd---fifth-avenue-cap-toe-oxford/SF5705S.html"
+    # url = "https://www.allenedmonds.com/factory-second-shoes/" \
+    #     + "factory-2nd---fifth-avenue-cap-toe-oxford/SF5705S.html"
     # url = "https://www.allenedmonds.com/factory-second-shoes/" \
     #     + "factory-2nd---sanford-cap-toe-derby-dress-shoe/SF6517S.html"
 
@@ -39,7 +39,6 @@ def main():
 
     price_regular = _currency_to_float(price_obj.get_text())
 
-    # print results
+    # return price
 
-    print(price_sale)
-    print(price_regular)
+    return price_sale if price_sale is not None else price_regular
