@@ -27,32 +27,30 @@ _WEBSITE_MAP = {
     "2": None # to be gap
 }
 
-_logger = None # pylint: disable=invalid-name
-
-def _setup():
-    global _logger
-    _logger = logging.getLogger("web-price-scraper")
-    _logger.setLevel(logging.DEBUG)
+def _get_logger():
+    logger = logging.getLogger("web-price-scraper")
+    logger.setLevel(logging.DEBUG)
     ch = logging.StreamHandler() # pylint: disable=invalid-name
     ch.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     ch.setFormatter(formatter)
-    _logger.addHandler(ch)
+    logger.addHandler(ch)
+    return logger
 
 def main():
     """Main function"""
-    _setup()
+    logger = _get_logger()
 
     client = MongoClient("mongodb://" + _MONGODB_USER + ":" + _MONGODB_PASSWORD \
         + "@" + _MONGODB_URI)
-    _logger.info("connection to db successful")
+    logger.info("connection to db successful")
 
     database = client["web-price-scraper"]
     watches = database["watches"]
     watch_data = database["watch-data"]
 
     all_watches = watches.find()
-    _logger.info("got all watch data")
+    logger.info("got all watch data")
 
     for watch in all_watches:
 
@@ -66,7 +64,7 @@ def main():
             watch_watchers.append(watcher["email"])
 
         current_price = watch_website_module.scrape(watch_url)
-        _logger.info("got price for watch with URL " + watch_url)
+        logger.info("got price for watch with URL %s", watch_url)
 
         watch_datum = {
             "watchKey": watch_id,
@@ -75,6 +73,6 @@ def main():
             "date": datetime.datetime.now(datetime.timezone.utc)
         }
         watch_data.insert_one(watch_datum)
-        _logger.info("stored price to db for watch with URL " + watch_url)
+        logger.info("stored price %d to db for watch with URL %s", current_price, watch_url)
 
 main()
