@@ -30,7 +30,9 @@ _WEBSITE_MAP = {
 }
 
 def _get_logger():
-    logger = logging.getLogger("web-price-scraper")
+    return logging.getLogger("web-price-scraper")
+
+def _init_logger(logger):
     logger.setLevel(logging.DEBUG)
     ch = logging.StreamHandler() # pylint: disable=invalid-name
     ch.setLevel(logging.DEBUG)
@@ -39,28 +41,44 @@ def _get_logger():
     logger.addHandler(ch)
     return logger
 
-def _notify_watchers(watch_obj):
+def _notify_watchers(watch_obj, last_watch_price, current_price):
     """Sends email to watchers to watch stuff"""
     logger = _get_logger()
     logger.info("price has decreased - sending email(s)")
 
-    connection = send_email.connect()
+    try:
+        connection = send_email.connect()
 
-    watchers = watch_obj["watchers"]
-    for watcher in watchers:
-        send_email.send_email(
-            connection=connection,
-            subject="",
-            recipient="",
-            sender="",
-            body=""
-        )
+        watchers = watch_obj["watchers"]
+        for watcher in watchers:
+            send_email.send_email(
+                connection=connection,
+                subject="Good news! %s price change" % watch_obj["title"],
+                recipient=watcher,
+                sender="noreply@sanjitdutta.com",
+                body="""
+                Greetings, watcher!
 
-    send_email.quit(connection)
+                Our top secret sources indicate that there has been a price change
+                in a product that you are interested in. Below are the details:
+
+                Product Name: %s
+                Product Link: <a href='%s'>Link</a>
+                Last Seen Price: $%.2f
+                Current Price: $%.2f
+
+                Happy hunting!
+                """ % (watch_obj["title"], watch_obj["url", last_watch_price, current_price])
+            )
+
+        send_email.close(connection)
+
+    except ConnectionRefusedError:
+        logger.error("SMTP server unavailable, no emails sent")
 
 def main():
     """Main function"""
-    logger = _get_logger()
+    logger = _init_logger(_get_logger())
 
     client = MongoClient("mongodb://" + _MONGODB_USER + ":" + _MONGODB_PASSWORD \
         + "@" + _MONGODB_URI)
@@ -82,6 +100,7 @@ def main():
         watch_obj = {
             "id": watch["_id"],
             "url": watch["url"],
+            "title": watch["title"],
             "website_key": str(watch["website"]),
             "website_module": _WEBSITE_MAP[str(watch["website"])],
             "watchers": watch_watchers
@@ -112,6 +131,6 @@ def main():
             current_price, watch_obj["url"])
 
         if last_watch_price is not None and current_price < last_watch_price:
-            _notify_watchers(watch_obj)
+            _notify_watchers(watch_obj, last_watch_price, current_price)
 
 main()
