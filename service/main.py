@@ -57,6 +57,9 @@ def _notify_watchers(watch_obj, last_watch_price, current_price):
                 recipient=watcher,
                 sender="noreply@sanjitdutta.com",
                 body="""
+                <html>
+                <head></head>
+                <body>
                 Greetings, watcher!
 
                 Our top secret sources indicate that there has been a price change
@@ -68,9 +71,12 @@ def _notify_watchers(watch_obj, last_watch_price, current_price):
                 Current Price: $%.2f
 
                 Happy hunting!
+                Your friendly neighborhood Spiderman
+                </body>
+                </html>
                 """ % (watch_obj["title"], watch_obj["url"], last_watch_price, current_price)
             )
-            log.info("Email sent to %s", watcher)
+            logger.info("Email sent to %s", watcher)
 
         send_email.close(connection)
 

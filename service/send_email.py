@@ -1,7 +1,8 @@
 """Sends email to watcher"""
 
 import smtplib
-from email.message import EmailMessage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 def connect():
     """Opens connection to SMTP server"""
@@ -13,8 +14,8 @@ def close(connection):
 
 def send_email(connection, subject, recipient, sender, body):
     """Sends an email based on arguemnts using connection"""
-    msg = EmailMessage()
-    msg.set_content(body)
+    msg = MIMEMultipart("alernative")
+    msg.attach(MIMEText(body, "html"))
     msg["Subject"] = subject
     msg["From"] = sender
     msg["To"] = recipient
