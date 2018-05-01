@@ -60,18 +60,18 @@ def _notify_watchers(watch_obj, last_watch_price, current_price):
                 <html>
                 <head></head>
                 <body>
-                Greetings, watcher!
-
+                Greetings, watcher!<br>
+                <br>
                 Our top secret sources indicate that there has been a price change
-                in a product that you are interested in. Below are the details:
-
-                <b>Product Name</b>: %s
-                <b>Product Link</b>: <a href='%s'>Link</a>
-                <b>Last Seen Price</b>: $%.2f
-                <b>Current Price</b>: $%.2f
-
-                Happy hunting!
-                Your friendly neighborhood Spiderman
+                in a product that you are interested in. Below are the details:<br>
+                <br>
+                <b>Product Name</b>: %s<br>
+                <b>Product Link</b>: <a href='%s'>Link</a><br>
+                <b>Last Seen Price</b>: $%.2f<br>
+                <b>Current Price</b>: $%.2f<br>
+                <br>
+                Happy hunting!<br>
+                Your friendly neighborhood Spiderman<br>
                 </body>
                 </html>
                 """ % (watch_obj["title"], watch_obj["url"], last_watch_price, current_price)
