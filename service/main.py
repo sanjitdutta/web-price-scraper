@@ -70,6 +70,7 @@ def _notify_watchers(watch_obj, last_watch_price, current_price):
                 Happy hunting!
                 """ % (watch_obj["title"], watch_obj["url"], last_watch_price, current_price)
             )
+            log.info("Email sent to %s", watcher)
 
         send_email.close(connection)
 
