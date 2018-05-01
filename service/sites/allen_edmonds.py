@@ -1,4 +1,4 @@
-"""Sample for testing"""
+"""Allen Edmonds website scraper"""
 
 import requests
 from bs4 import BeautifulSoup

@@ -9,6 +9,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv, find_dotenv
 
 import sites.allen_edmonds as allen_edmonds
+import send_email
 
 # 1) pull watch info from DB
 # 2) execute scraping for each entry
@@ -42,7 +43,20 @@ def _notify_watchers(watch_obj):
     """Sends email to watchers to watch stuff"""
     logger = _get_logger()
     logger.info("price has decreased - sending email(s)")
-    pass
+
+    connection = send_email.connect()
+
+    watchers = watch_obj["watchers"]
+    for watcher in watchers:
+        send_email.send_email(
+            connection=connection,
+            subject="",
+            recipient="",
+            sender="",
+            body=""
+        )
+
+    send_email.quit(connection)
 
 def main():
     """Main function"""
@@ -66,15 +80,15 @@ def main():
             watch_watchers.append(watcher["email"])
 
         watch_obj = {
-            "watch_id": watch["_id"],
-            "watch_url": watch["url"],
-            "watch_website_key": str(watch["website"]),
-            "watch_website_module": _WEBSITE_MAP[str(watch["website"])],
-            "watch_watchers": watch_watchers
+            "id": watch["_id"],
+            "url": watch["url"],
+            "website_key": str(watch["website"]),
+            "website_module": _WEBSITE_MAP[str(watch["website"])],
+            "watchers": watch_watchers
         }
 
         last_watch_datum = watch_data.find_one(
-            filter={"watchKey": watch_obj["watch_id"]},
+            filter={"watchKey": watch_obj["id"]},
             sort=[("date", pymongo.DESCENDING)]
         )
         last_watch_price = None
@@ -82,20 +96,20 @@ def main():
         if last_watch_datum is not None:
             last_watch_price = last_watch_datum["price"]
             logger.info("got previous price %d for watch with URL %s", \
-                last_watch_price, watch_obj["watch_url"])
+                last_watch_price, watch_obj["url"])
 
-        current_price = watch_obj["watch_website_module"].scrape(watch_obj["watch_url"])
-        logger.info("got price for watch with URL %s", watch_obj["watch_url"])
+        current_price = watch_obj["website_module"].scrape(watch_obj["url"])
+        logger.info("got price for watch with URL %s", watch_obj["url"])
 
         watch_datum = {
-            "watchKey": watch_obj["watch_id"],
-            "url": watch_obj["watch_url"],
+            "watchKey": watch_obj["id"],
+            "url": watch_obj["url"],
             "price": current_price,
             "date": datetime.datetime.now(datetime.timezone.utc)
         }
         watch_data.insert_one(watch_datum)
         logger.info("stored price %d to db for watch with URL %s", \
-            current_price, watch_obj["watch_url"])
+            current_price, watch_obj["url"])
 
         if last_watch_price is not None and current_price < last_watch_price:
             _notify_watchers(watch_obj)
