@@ -65,10 +65,10 @@ def _notify_watchers(watch_obj, last_watch_price, current_price):
                 Our top secret sources indicate that there has been a price change
                 in a product that you are interested in. Below are the details:
 
-                Product Name: %s
-                Product Link: <a href='%s'>Link</a>
-                Last Seen Price: $%.2f
-                Current Price: $%.2f
+                <b>Product Name</b>: %s
+                <b>Product Link</b>: <a href='%s'>Link</a>
+                <b>Last Seen Price</b>: $%.2f
+                <b>Current Price</b>: $%.2f
 
                 Happy hunting!
                 Your friendly neighborhood Spiderman
