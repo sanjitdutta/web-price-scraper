@@ -17,7 +17,7 @@ def scrape(url):
     # load page
 
     page = requests.get(url)
-    soup = BeautifulSoup(page.content, 'html.parser')
+    soup = BeautifulSoup(page.content, "html.parser")
 
     # find price area
 

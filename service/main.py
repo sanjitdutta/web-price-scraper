@@ -9,6 +9,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv, find_dotenv
 
 import sites.allen_edmonds as allen_edmonds
+import sites.amazon as amazon
 import send_email
 
 # 1) pull watch info from DB
@@ -25,7 +26,7 @@ _MONGODB_URI = os.getenv("MONGODB_URI")
 
 _WEBSITE_MAP = {
     "0": allen_edmonds,
-    "1": None, # to be amazon
+    "1": amazon,
     "2": None # to be gap
 }
 
