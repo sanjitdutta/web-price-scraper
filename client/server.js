@@ -6,9 +6,19 @@ const mongoose = require('mongoose');
 require('dotenv').config({path: __dirname + '/.env'});
 const router = express.Router();
 
+// set up environment vars
 const dbUser = process.env.MONGODB_USER;
 const dbPassword = process.env.MONGODB_PASSWORD;
 const db = process.env.MONGODB_DB;
+
+const port = process.env.PORT || 4000;
+const httpsPort = process.env.HTTPS_PORT || 4443;
+const sslCertPath = process.env.SSL_CERT_PATH;
+const sslKeyPath = process.env.SSL_KEY_PATH;
+
+if (!dbUser || !dbPassword || !db)
+  throw 'Environment variables MONGODB_USER, MONGODB_PASSWORD, ' +
+    + 'and MONGO_DB must be set';
 
 const Watch = require('./watch');
 const Website = require('./website');
@@ -17,9 +27,6 @@ mongoose.connect('mongodb://' + dbUser + ':' + dbPassword + '@' + db);
 
 // Create our Express application
 const app = express();
-
-// Use environment defined port or 4000
-const port = process.env.PORT || 4000;
 
 // Use the body-parser package in our application
 app.use(bodyParser.urlencoded({
@@ -284,3 +291,19 @@ websitesRoute.get((req, res) => {
 
 app.listen(port);
 console.log('Server running on port ' + port);
+
+// serve on HTTPS also
+
+if (!sslCertPath || !sslKeyPath)
+  console.log('Note: environment variables SSL_CERT_PATH and '
+    + 'SSL_KEY_PATH must be set to serve on HTTPS');
+else {
+  const https = require('https');
+  const fs = require('fs');
+  const options = {
+    cert: fs.readFileSync(sslCertPath),
+    key: fs.readFileSync(sslKeyPath)
+  };
+  https.createServer(options, app).listen(httpsPort);
+  console.log('HTTPS server running on port ' + httpsPort);
+}
