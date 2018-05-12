@@ -37,7 +37,14 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser());
 
-app.use(express.static('web/dist'));
+const basicAuth = require('express-basic-auth');
+
+// convert this to an argument or environment var
+app.use(basicAuth({
+  users: { 'admin': 'supersecret' }
+}));
+
+app.use('/app', express.static('web/dist'));
 
 app.use('/api', router);
 
