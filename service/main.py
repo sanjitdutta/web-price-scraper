@@ -1,6 +1,7 @@
 """Main scraping runner"""
 
 import os
+import sys
 import datetime
 import logging
 
@@ -35,7 +36,7 @@ def _get_logger():
 
 def _init_logger(logger):
     logger.setLevel(logging.DEBUG)
-    ch = logging.StreamHandler() # pylint: disable=invalid-name
+    ch = logging.StreamHandler(stream=sys.stdout) # pylint: disable=invalid-name
     ch.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     ch.setFormatter(formatter)
