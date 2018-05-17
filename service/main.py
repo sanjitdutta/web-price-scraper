@@ -122,7 +122,7 @@ def main():
 
         if last_watch_datum is not None:
             last_watch_price = last_watch_datum["price"]
-            logger.info("got previous price %d for watch with URL %s", \
+            logger.info("got previous price %.2f for watch with URL %s", \
                 last_watch_price, watch_obj["url"])
 
         current_price = watch_obj["website_module"].scrape(watch_obj["url"])
@@ -135,7 +135,7 @@ def main():
             "date": datetime.datetime.now(datetime.timezone.utc)
         }
         watch_data.insert_one(watch_datum)
-        logger.info("stored price %d to db for watch with URL %s", \
+        logger.info("stored price %.2f to db for watch with URL %s", \
             current_price, watch_obj["url"])
 
         if last_watch_price is not None and current_price < last_watch_price:

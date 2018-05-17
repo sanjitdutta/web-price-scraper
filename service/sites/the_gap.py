@@ -1,4 +1,4 @@
-"""Amazon website scraper"""
+"""The GAP website scraper"""
 
 import requests
 from bs4 import BeautifulSoup

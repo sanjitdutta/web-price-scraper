@@ -9,14 +9,12 @@ def _currency_to_float(currency):
 def scrape(url):
     """Executes all logic"""
 
-    # url = "https://www.allenedmonds.com/factory-second-shoes/" \
-    #     + "factory-2nd---fifth-avenue-cap-toe-oxford/SF5705S.html"
-    # url = "https://www.allenedmonds.com/factory-second-shoes/" \
-    #     + "factory-2nd---sanford-cap-toe-derby-dress-shoe/SF6517S.html"
-
     # load page
 
-    page = requests.get(url)
+    page = requests.get(url, headers={
+        "User-agent": "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36" \
+        + " (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36"
+    })
     soup = BeautifulSoup(page.content, "html.parser")
 
     # find price area
