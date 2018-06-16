@@ -126,7 +126,10 @@ def main():
             logger.info("got previous price %.2f for watch with URL %s", \
                 last_watch_price, watch_obj["url"])
 
-        current_price = watch_obj["website_module"].scrape(watch_obj["url"])
+        try:
+            current_price = watch_obj["website_module"].scrape(watch_obj["url"])
+        except Exception as e:
+            logger.error("Error scraping page: %s", str(e))
         logger.info("got price for watch with URL %s", watch_obj["url"])
 
         watch_datum = {
