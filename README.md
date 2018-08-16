@@ -48,3 +48,13 @@ python service/main.py
 ```bash
 node client/server.js
 ```
+
+## Client - Installation
+
+Once you have downloaded this repository to your desired location, you can install the client
+as a `systemd` service. Execute the following:
+
+```bash
+cd client
+sudo make install
+```
