@@ -1,0 +1,14 @@
+[Unit]
+Description=Web Price Scraper (Node.js HTTP Server)
+
+[Service]
+PIDFile=/var/run/web_price_scraper-99.pid
+User=root
+Group=root
+Restart=always
+KillSignal=SIGQUIT
+WorkingDirectory=/home/sdlynx/repos/web-price-scraper/client/
+ExecStart=/usr/bin/node /home/sdlynx/repos/web-price-scraper/client/server.js
+
+[Install]
+WantedBy=multi-user.target
