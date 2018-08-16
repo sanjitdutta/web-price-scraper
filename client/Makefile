@@ -2,7 +2,6 @@ DESTDIR=
 PREFIX=/usr
 SYSCONFDIR=/etc
 
-NODE:=$(shell which node)
 NPM:=$(shell which npm)
 SYSTEMCTL:=$(shell which systemctl)
 
