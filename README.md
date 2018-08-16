@@ -40,13 +40,22 @@ These can also be stored in a `.env` file within `./client` and `./server`.
 ## Service - Execution
 
 ```bash
-python service/main.py
+python3 service/main.py
 ```
 
 ## Client - Execution
 
 ```bash
 node client/server.js
+```
+
+## Service - Installation
+
+For now, I've just set up the service to run through my crontab once ever 12 hours.
+
+```bash
+# Web Price Scraper
+0 8,20 * * * python3 ~/repos/web-price-scraper/service/main.py > /dev/null
 ```
 
 ## Client - Installation
