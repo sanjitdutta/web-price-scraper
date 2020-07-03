@@ -62,7 +62,7 @@ For now, I've just set up the service to run through my crontab once ever 12 hou
 
 Once you have downloaded this repository to your desired location, you can install the client
 as a `systemd` service. Update `web-price-scraper.service` `WorkingDirectory` and `ExecStart`
-parameters to make the location of your installation. Then execute the following:
+parameters to point to the location of your cloned repository. Then execute the following:
 
 ```bash
 cd client
