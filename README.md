@@ -61,7 +61,8 @@ For now, I've just set up the service to run through my crontab once ever 12 hou
 ## Client - Installation
 
 Once you have downloaded this repository to your desired location, you can install the client
-as a `systemd` service. Execute the following:
+as a `systemd` service. Update `web-price-scraper.service` `WorkingDirectory` and `ExecStart`
+parameters to make the location of your installation. Then execute the following:
 
 ```bash
 cd client
